@@ -29,10 +29,9 @@ jobs:
         run: docker build -t rick-morty-app:ci -f api-service/Dockerfile .
 
       - name: Set up KinD cluster
-        uses: engineerd/setup-kind@v0.11.0
+        uses: engineerd/setup-kind@v0.6.0
         with:
-          node-image: kindest/node:v1.24.0
-
+          version: "v0.24.0" 
       - name: Load image into KinD
         run: kind load docker-image rick-morty-app:ci --name kind
 

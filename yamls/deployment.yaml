@@ -1,0 +1,26 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: rick-morty-app
+  namespace: dev
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: rick-morty
+  template:
+    metadata:
+      labels:
+        app: rick-morty
+    spec:
+      containers:
+      - name: api
+        image: rick-morty-app:dev       # שנה לשם הרגיסטרי/תג שלך
+        ports:
+        - containerPort: 80
+        readinessProbe:
+          exec:
+            command: ["/app/healthcheck.sh"]
+        livenessProbe:
+          exec:
+            command: ["/app/healthcheck.sh"]

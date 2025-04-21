@@ -20,12 +20,12 @@ jobs:
           python-version: '3.x'
 
       - name: Build Docker image
-        run: docker build -t rick-morty-app:ci .
+        run: docker build -t rick-morty-app:ci -f api-service/Dockerfile .
 
       - name: Run container
         run: |
           docker run -d --name rick-morty-app -p 8080:8080 rick-morty-app:ci
-          # נחכה עד שהשרתי יהיה זמין
+          # Wait until the service is ready
           for i in {1..15}; do
             curl -sf http://localhost:8000/healthcheck && break
             echo "Waiting for API to start..."

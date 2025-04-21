@@ -28,9 +28,12 @@ jobs:
         run: docker build -t rick-morty-app:ci -f api-service/Dockerfile .
 
       - name: Set up KinD cluster
-  uses: crazy-max/setup-kind@v1
-  with:
-    version: "v0.24.0"
+        uses: crazy-max/setup-kind@v1
+        with:
+          version: "v0.24.0"
+
+      - name: Load image into KinD
+        run: kind load docker-image rick-morty-app:ci --name kind
 
   deploy-to-kind:
     name: Deploy to Kubernetes & test

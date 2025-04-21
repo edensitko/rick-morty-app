@@ -31,9 +31,7 @@ jobs:
       - name: Set up KinD cluster
         uses: engineerd/setup-kind@v0.6.0
         with:
-          version: "v0.24.0" 
-      - name: Load image into KinD
-        run: kind load docker-image rick-morty-app:ci --name kind
+          version: "v0.24.0"
 
   deploy-to-kind:
     name: Deploy to Kubernetes & test

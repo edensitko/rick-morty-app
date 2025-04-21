@@ -29,9 +29,9 @@ jobs:
         run: docker build -t rick-morty-app:ci -f api-service/Dockerfile .
 
       - name: Set up KinD cluster
-        uses: engineerd/setup-kind@v0.6.0
-        with:
-          version: "v0.24.0"
+  uses: crazy-max/setup-kind@v1
+  with:
+    version: "v0.24.0"
 
   deploy-to-kind:
     name: Deploy to Kubernetes & test

@@ -20,11 +20,11 @@ jobs:
           python-version: '3.x'
 
       - name: Build Docker image
-        run: docker build -t rick-morty-api-service:ci .
+        run: docker build -t rick-morty-app:ci .
 
       - name: Run container
         run: |
-          docker run -d --name rick-morty-api -p 8000:8000 rick-morty-api-service:ci
+          docker run -d --name rick-morty-app -p 8080:8080 rick-morty-app:ci
           # נחכה עד שהשרתי יהיה זמין
           for i in {1..15}; do
             curl -sf http://localhost:8000/healthcheck && break
@@ -34,16 +34,16 @@ jobs:
 
       - name: Test /healthcheck
         run: |
-          curl -sf http://localhost:8000/healthcheck
+          curl -sf http://localhost:8080/healthcheck
 
       - name: Test /characters endpoint
         run: |
-          curl -sf http://localhost:8000/characters | head -n1
+          curl -sf http://localhost:8080/characters | head -n1
 
       - name: Test /characters/csv endpoint
         run: |
-          curl -sf http://localhost:8000/characters/csv | head -n1
+          curl -sf http://localhost:8080/characters/csv | head -n1
 
       - name: Cleanup container
         if: always()
-        run: docker rm -f rick-morty-api
+        run: docker rm -f rick-morty-app
